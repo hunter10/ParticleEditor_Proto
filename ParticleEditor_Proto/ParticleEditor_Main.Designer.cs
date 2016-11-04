@@ -38,6 +38,8 @@
             this.SaveProject = new System.Windows.Forms.Button();
             this.OpenProject = new System.Windows.Forms.Button();
             this.NewProject = new System.Windows.Forms.Button();
+            this.numeric_gravity = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
             this.parPanel1 = new ParticleEditor_Proto.ParticlePanel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -46,12 +48,14 @@
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numeric_sprite)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numeric_number)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numeric_gravity)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
             // 
             this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
             // 
@@ -75,6 +79,8 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.SkyBlue;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.numeric_gravity);
             this.panel1.Controls.Add(this.lbSprite);
             this.panel1.Controls.Add(this.numeric_sprite);
             this.panel1.Controls.Add(this.numeric_number);
@@ -159,6 +165,32 @@
             this.NewProject.UseVisualStyleBackColor = false;
             this.NewProject.Click += new System.EventHandler(this.NewProject_Click);
             // 
+            // numeric_gravity
+            // 
+            this.numeric_gravity.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numeric_gravity.Location = new System.Drawing.Point(72, 271);
+            this.numeric_gravity.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.numeric_gravity.Name = "numeric_gravity";
+            this.numeric_gravity.Size = new System.Drawing.Size(50, 21);
+            this.numeric_gravity.TabIndex = 4;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(9, 280);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(44, 12);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Gravity";
+            // 
             // parPanel1
             // 
             this.parPanel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
@@ -186,6 +218,7 @@
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numeric_sprite)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numeric_number)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numeric_gravity)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -203,6 +236,8 @@
         public System.Windows.Forms.NumericUpDown numeric_sprite;
         public System.Windows.Forms.NumericUpDown numeric_number;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        public System.Windows.Forms.NumericUpDown numeric_gravity;
     }
 }
 

@@ -43,6 +43,8 @@ namespace ParticleEditor_Proto
         public Particle mypar = new Particle();
         public List<GameObject> gObject = new List<GameObject>();
 
+        Timer Particletimer = new System.Windows.Forms.Timer();
+
         public ParticlePanel()
         {
             InitializeComponent();
@@ -63,15 +65,28 @@ namespace ParticleEditor_Proto
                 return;
             }
             m_device = new Device(0, DeviceType.Hardware, this, CreateFlags.HardwareVertexProcessing, pp);
+
+            // 윈폼 타이머 사용
+            Particletimer.Interval = 10; // 0.01초
+            Particletimer.Tick += new EventHandler(ParticleTimer_Tick);
+            Particletimer.Start();
+        }
+
+        delegate void ParTicleTimerEventDelegate();
+
+        // 매 0.01초마다 Tick 이벤트 핸들러 실행
+        void ParticleTimer_Tick(object sender, EventArgs e)
+        {
+            BeginInvoke(new ParTicleTimerEventDelegate(RunGame));
         }
 
         public void RunGame()
         {
-            while (active)
-            {
+            //while (active)
+            //{
                 DrawScreen();
                 Application.DoEvents();
-            }
+            //}
         }
 
         public void AddNewEffect()
@@ -107,7 +122,7 @@ namespace ParticleEditor_Proto
             //owner.numeric_dead.Value = mypar.effect[num].dead;
             //owner.numeric_power.Value = mypar.effect[num].power;
             //owner.numeric_range.Value = mypar.effect[num].range;
-            //owner.numeric_gravity.Value = mypar.effect[num].gravity;
+            owner.numeric_gravity.Value = mypar.effect[num].gravity;
             //owner.combo_alpha.SelectedIndex = mypar.effect[num].alpha;
         }
 
@@ -134,7 +149,7 @@ namespace ParticleEditor_Proto
             //mypar.effect[num].dead = (int)owner.numeric_dead.Value;
             //mypar.effect[num].power = (int)owner.numeric_power.Value;
             //mypar.effect[num].range = (int)owner.numeric_range.Value;
-            //mypar.effect[num].gravity = (int)owner.numeric_gravity.Value;
+            mypar.effect[num].gravity = (int)owner.numeric_gravity.Value;
             //mypar.effect[num].alpha = (int)owner.combo_alpha.SelectedIndex;
 
             return mypar.effect[num];
