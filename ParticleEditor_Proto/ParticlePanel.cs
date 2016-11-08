@@ -44,6 +44,8 @@ namespace ParticleEditor_Proto
         public List<GameObject> gObject = new List<GameObject>();
 
         Timer Particletimer = new System.Windows.Forms.Timer();
+        Timer ParticlePlaytimer = new System.Windows.Forms.Timer();
+        public int particlePlaytimerIntervalTime = 100;
 
         public ParticlePanel()
         {
@@ -70,6 +72,10 @@ namespace ParticleEditor_Proto
             Particletimer.Interval = 10; // 0.01초
             Particletimer.Tick += new EventHandler(ParticleTimer_Tick);
             Particletimer.Start();
+
+            ParticlePlaytimer.Interval = particlePlaytimerIntervalTime; // 0.1초
+            ParticlePlaytimer.Tick += new EventHandler(ParticlePlayTimer_Tick);
+            //ParticlePlaytimer.Start();
         }
 
         delegate void ParTicleTimerEventDelegate();
@@ -78,6 +84,11 @@ namespace ParticleEditor_Proto
         void ParticleTimer_Tick(object sender, EventArgs e)
         {
             BeginInvoke(new ParTicleTimerEventDelegate(RunGame));
+        }
+
+        void ParticlePlayTimer_Tick(object sender, EventArgs e)
+        {
+            MakeEffect();
         }
 
         public void RunGame()
@@ -192,6 +203,7 @@ namespace ParticleEditor_Proto
             }
         }
 
+        int Prticle_Grid = 50;
         private void DrawScreen()
         {
             try
@@ -203,7 +215,8 @@ namespace ParticleEditor_Proto
                 m_device.Clear(ClearFlags.Target, Color.Gray, 1.0f, 0);
                 m_device.BeginScene();
 
-                DrawRectangle(x, y, width, height, Color.Black.ToArgb());
+                DXDraw.DrawRectangle(m_device, x, y, width, height, Color.Black);
+                DXDraw.DrawScreenGrid(m_device, Prticle_Grid, x, y, width, height, Color.LightGray);
 
                 using (Microsoft.DirectX.Direct3D.Sprite s = new Microsoft.DirectX.Direct3D.Sprite(m_device))
                 {
@@ -412,5 +425,23 @@ namespace ParticleEditor_Proto
             if (e.Button == MouseButtons.Left) LeftClick = false;
             if (e.Button == MouseButtons.Right) RightClick = false;
         }
+
+        public void PlayProcess()
+        {
+            ParticlePlaytimer.Start();
+        }
+
+        public void PlayInterval(int time)
+        {
+            Console.WriteLine("time : {0}", time);
+            ParticlePlaytimer.Interval = time;
+        }
+
+        public void StopProcess()
+        {
+            ParticlePlaytimer.Stop();
+        }
+
+        //ParticlePlaytimer.Interval = particlePlaytimerIntervalTime; // 0.1초
     }
 }

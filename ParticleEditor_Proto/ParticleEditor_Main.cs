@@ -65,5 +65,26 @@ namespace ParticleEditor_Proto
             parPanel1.m_device.Dispose();
             this.Dispose();
         }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            parPanel1.OpenEffectFile();
+        }
+
+        private void btnPlay_Click(object sender, EventArgs e)
+        {
+            parPanel1.PlayProcess();
+        }
+
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            parPanel1.StopProcess();
+        }
+
+        private void numeric_TimeInterval_ValueChanged(object sender, EventArgs e)
+        {
+            //Console.WriteLine("{0}", numeric_TimeInterval.Value);
+            parPanel1.PlayInterval((int)numeric_TimeInterval.Value);
+        }
     }
 }
